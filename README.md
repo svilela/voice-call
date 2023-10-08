@@ -8,12 +8,19 @@
 **Table of Contents**
 
 - [Installation](#installation)
+- [Development](#development)
 - [License](#license)
 
 ## Installation
 
 ```console
-pip install voice-call
+python3 -m pip install voice-call
+```
+
+## Development
+
+```console
+python3 -m pip install -e .
 ```
 
 ## License
