@@ -1,0 +1,11 @@
+__pycache__/
+dist/
+lixo*
+*.log
+.ruff_cache
+.pytest_cache
+*.mp4
+.venv/
+requirements.txt
+.ipynb_checkpoints
+

@@ -1,0 +1,15 @@
+site_name: Projeto Gamma APR
+
+theme:
+  name: "material"
+
+plugins:
+- search
+- mkdocstrings
+
+nav:
+  - Indice: index.md
+  - Tutoriais: tutorials.md
+  - Guias Práticos: how-to-guides.md
+  - Referência: reference.md
+  - Sobre o projeto: about.md
