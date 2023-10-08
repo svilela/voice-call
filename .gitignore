@@ -8,4 +8,8 @@ lixo*
 .venv/
 requirements.txt
 .ipynb_checkpoints
-
+.vscode/launch.json
+tests/logs/
+Untitled*.py
+*.pkl
+.streamlit/secrets.toml

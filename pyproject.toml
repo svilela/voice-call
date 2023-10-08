@@ -7,24 +7,35 @@ name = "voice-call"
 dynamic = ["version"]
 description = ''
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.10"
 license = "MIT"
 keywords = []
 authors = [
+  { name = "Sergio Vilela", email = "svilela@gmail.com" },
   { name = "João Antonio Ferreira", email = "joao.parana@gmail.com" },
 ]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
-  "Programming Language :: Python :: 3.7",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = []
+dependencies = [
+  "behave",
+  "pyarrow",
+  "pandas",
+  "numpy",
+  "matplotlib",
+  "pydantic",
+  "pydantic-settings",
+  "streamlit",
+  "streamlit_extras",
+  "streamlit_js_eval",
+  "extra_streamlit_components",
+  "streamlit-pydantic",
+]
 
 [project.urls]
 Documentation = "https://github.com/unknown/voice-call#readme"
@@ -52,7 +63,7 @@ cov = [
 ]
 
 [[tool.hatch.envs.all.matrix]]
-python = ["3.7", "3.8", "3.9", "3.10", "3.11"]
+python = ["3.10", "3.11"]
 
 [tool.hatch.envs.lint]
 detached = true
@@ -78,21 +89,19 @@ all = [
 ]
 
 [tool.black]
-target-version = ["py37"]
-line-length = 120
+target-version = ["py310"]
+line-length = 88
 skip-string-normalization = true
 
 [tool.ruff]
-target-version = "py37"
-line-length = 120
+target-version = "py310"
+line-length = 88
 select = [
   "A",
   "ARG",
   "B",
   "C",
-  "DTZ",
   "E",
-  "EM",
   "F",
   "FBT",
   "I",
@@ -103,7 +112,6 @@ select = [
   "PLE",
   "PLR",
   "PLW",
-  "Q",
   "RUF",
   "S",
   "T",
@@ -121,6 +129,10 @@ ignore = [
   "S105", "S106", "S107",
   # Ignore complexity
   "C901", "PLR0911", "PLR0912", "PLR0913", "PLR0915",
+  # Ignore imported but unused - Ruff F401
+  "F401",
+  # Ignore Use of `assert` detected - Ruff S101
+  "S101",
 ]
 unfixable = [
   # Don't touch unused imports
@@ -128,7 +140,7 @@ unfixable = [
 ]
 
 [tool.ruff.isort]
-known-first-party = ["voice_call"]
+known-first-party = ["gamma_apr"]
 
 [tool.ruff.flake8-tidy-imports]
 ban-relative-imports = "all"
