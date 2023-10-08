@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 from pandas import Series
-from scipy.stats import zscore
+from scipy.stats import zscore  # type: ignore
 
 from voice_call.log_config import LogConfig
 
@@ -39,7 +39,9 @@ class Util:
     # se o valor é nulo ou não, e a segunda com a quantidade de valores consecutivos iguais.
     # Valor: True se o valor é nulo, False se não é nulo
     @staticmethod
-    def get_null_and_notnull_consecutive_counts(df_to_process: pd.DataFrame, col_name: str) -> pd.DataFrame:
+    def get_null_and_notnull_consecutive_counts(
+        df_to_process: pd.DataFrame, col_name: str
+    ) -> pd.DataFrame:
         df_ret = df_to_process[col_name].isna()
         # print('df_ret:\n',  df_ret)
         # Obtendo os grupos consecutivos de valores iguais
@@ -50,7 +52,9 @@ class Util:
         # Obtendo os valores dos grupos
         group_values = df_ret.groupby(groups).first()
         # Juntando as informações em um único DataFrame
-        result = pd.DataFrame({"Value": group_values, "Counts": counts, "Start": inicio[0]})
+        result = pd.DataFrame(
+            {"Value": group_values, "Counts": counts, "Start": inicio[0]}
+        )
         result.reset_index(drop=True, inplace=True)
         return result
 
@@ -58,14 +62,7 @@ class Util:
     def get_numeric_column_names(df) -> list:
         ret: list = []
         for _idx, c in enumerate(df.columns):
-            if (
-                df[c].dtype == float
-                or df[c].dtype == int
-                or df[c].dtype == np.float64
-                or df[c].dtype == np.int64
-                or df[c].dtype == np.float32
-                or df[c].dtype == np.int32
-            ):
+            if df[c].dtype in {float, int, np.float64, np.int64, np.float32, np.int32}:
                 ret.append(c)
         ret.sort()
         return ret
@@ -82,7 +79,9 @@ class Util:
             return None
         else:
             logger.debug("Primeiro elemento da série não é NaN")
-            null_and_notnull_counts = Util.get_null_and_notnull_consecutive_counts(df, col)
+            null_and_notnull_counts = Util.get_null_and_notnull_consecutive_counts(
+                df, col
+            )
             return null_and_notnull_counts
 
     @staticmethod
@@ -109,7 +108,6 @@ class Util:
             z_scores = zscore(values)
             limit = 2.0
             return [abs(z_score) > limit for z_score in z_scores]
-
         elif method == "iqr":
             q25 = np.percentile(values, 25)
             q75 = np.percentile(values, 75)
@@ -117,7 +115,6 @@ class Util:
             lower_bound = q25 - 1.5 * iqr
             upper_bound = q75 + 1.5 * iqr
             return [value < lower_bound or value > upper_bound for value in values]
-
         else:
             msg = f"Unknown method: {method}"
             raise ValueError(msg)
@@ -134,7 +131,9 @@ class Util:
 
     @staticmethod
     def get_min_max_variation_factors(df: pd.DataFrame) -> dict[str, tuple[int, int]]:
-        max_factor_dict = {}  # Key: col_name, value: tuple(min, max) with the min and max factor
+        max_factor_dict = (
+            {}
+        )  # Key: col_name, value: tuple(min, max) with the min and max factor
         for col in df.columns:
             max_factor_dict[col] = 0
 
