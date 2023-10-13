@@ -55,26 +55,26 @@ class Price(BaseModel):
     min_starting_time: int # Quantidade de segundos mínima para cobrança
 
 
-external_data = {'plan_id': '123', 'phone_type': 'M', 'plan_status_code': 'A', 'activation_date': '2017-06-01 12:22', 
-                 'duration_time': '60', 'duration_value': '0.50', 'min_starting_time': '30'}
-plano= Plano(**external_data)
+external_data = {'plan_id': '123', 'customer_phone_type': 'M', 'other_phone_type': 'M', 'activation_date': '2017-06-01 12:22', 
+                 'duration_time': '60', 'duration_value': '0.50', 'min_starting_time': '5'}
+price = Price(**external_data)
 
-class Chamada(BaseModel):
-    idChamada: int
-    nuTelefoneOrigem: int
-    phone_typeOrigem: str # Fixo F, Movel M, Especial E, 0800 8
-    CdOperadoraOrigem: int
-    nuTelefoneDestino: int
-    phone_typeDestino: str # Fixo F, Movel M, Especial E, 0800 8
-    CdOperadoraDestino: int
-    inChamadaACobrar: bool
-    dtChamada: datetime
+class Call_data_record(BaseModel):
+    call_id: int
+    phone_number_from: int
+    phone_type_from: str # Fixo F, Movel M, Especial E, 0800 8
+    operator_code_from: int
+    phone_number_to: int
+    phone_type_to: str # Fixo F, Movel M, Especial E, 0800 8
+    operator_code_to: int
+    call_collect_flag: bool
+    call_date: datetime
     duration_time: int
-    vlChamada: float
+    call_value: float
     
 
 
-external_data = {'idChamada': '1234', 'nuTelefoneOrigem': '5521982149680', 'phone_typeOrigem': 'M', 'CdOperadoraOrigem': '1', 
-                 'nuTelefoneDestino': '5521982149680', 'phone_typeDestino': 'M', 'CdOperadoraDestino': '1', 'inChamadaACobrar': 'FALSE', 
-                 'dtChamada': '2017-06-01 12:22', 'duration_time': '600', 'vlChamada': '5'}
-chamada= Chamada(**external_data)
+external_data = {'call_id': '1234', 'phone_number_from': '5521982149680', 'phone_type_from': 'M', 'operator_code_from': '1', 
+                 'phone_number_to': '5521982149680', 'phone_type_to': 'M', 'operator_code_to': '1', 'call_collect_flag': 'FALSE', 
+                 'call_date': '2017-06-01 12:22', 'duration_time': '600', 'call_value': '5'}
+call_data_record = Call_data_record(**external_data)
